@@ -2,13 +2,16 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./components/home/Home";
 import NotFoundOrUnauthorized from "./components/shared/NotFoundOrUnauthorized";
-import About from "./components/shared/About";
 import Header from "./components/shared/Header";
 import AuthPage from "./components/auth/AuthPage";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import React, {useEffect} from "react";
 import extractRoleAndStore from "./helpers/extractRoleAndStore";
+import CreatePropertyPage from "./components/propetry/landlord/CreatePropertyPage";
+import PropertyList from "./components/propetry/PropertyList";
+import LandlordPropertiesPage from "./components/propetry/landlord/LandlordPropertiesPage";
+import LandlordPropertyPage from "./components/propetry/landlord/LandlordPropertyPage";
 
 function App() {
     const [isAuthed, setIsAuthed] = React.useState(false);
@@ -34,7 +37,9 @@ function App() {
 
                 {isAuthed &&
                     <>
-                        <Route path="/about" element={<About />} />
+                        <Route path="/newproperty" element={<CreatePropertyPage />} />
+                        <Route path="/landloardproperties" element={<LandlordPropertiesPage />} />
+                        <Route path="/landloardproperties/:propertyId" element={<LandlordPropertyPage />} />
                     </>
                 }
             </Routes>

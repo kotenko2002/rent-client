@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
     baseURL: 'https://localhost:7023',
-    timeout: 10000,
+    //timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -24,7 +24,6 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
-        console.log(1)
         return response;
     },
     (error) => {

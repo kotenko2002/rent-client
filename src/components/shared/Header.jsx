@@ -33,7 +33,10 @@ const Header = ({isAuthed, role}) => {
                         {role === "Landlord" &&
                             <>
                                 <li className="nav-item">
-                                    <a className="nav-link" onClick={() => navigate("/")} role="button">Моя нерухомість</a>
+                                    <a className="nav-link" onClick={() => navigate("/landloardproperties")} role="button">Моя нерухомість</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" onClick={() => navigate("/newproperty")} role="button">Додати об'єкт</a>
                                 </li>
                             </>
                         }
@@ -41,7 +44,7 @@ const Header = ({isAuthed, role}) => {
                     <span className="navbar-text">
                         {
                             isAuthed
-                            ? <button className="btn btn-outline-primary btn-sm" type="submit" onClick={logout}>Вийти</button>
+                                ? <button className="btn btn-outline-primary btn-sm" type="submit" onClick={logout}>Вийти</button>
                             : <button className="btn btn-outline-primary btn-sm" type="submit" onClick={() => navigate("/auth")}>Увійти</button>
                         }
                     </span>
