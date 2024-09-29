@@ -31,7 +31,9 @@ const LandlordPropertiesPage = () => {
     }
 
     return (
-        <PropertyList properties={properties} />
+        <div className="container mt-5">
+            <PropertyList properties={properties} />
+        </div>
     );
 };
 

@@ -12,6 +12,8 @@ import CreatePropertyPage from "./components/propetry/landlord/CreatePropertyPag
 import PropertyList from "./components/propetry/PropertyList";
 import LandlordPropertiesPage from "./components/propetry/landlord/LandlordPropertiesPage";
 import LandlordPropertyPage from "./components/propetry/landlord/LandlordPropertyPage";
+import SearchPropertyPage from "./components/propetry/tenant/SearchPropertyPage";
+import TenantPropertyPage from "./components/propetry/tenant/TenantPropertyPage";
 
 function App() {
     const [isAuthed, setIsAuthed] = React.useState(false);
@@ -40,6 +42,9 @@ function App() {
                         <Route path="/newproperty" element={<CreatePropertyPage />} />
                         <Route path="/landloardproperties" element={<LandlordPropertiesPage />} />
                         <Route path="/landloardproperties/:propertyId" element={<LandlordPropertyPage />} />
+
+                        <Route path="/searchproperty" element={<SearchPropertyPage />} />
+                        <Route path="/tenantproperty/:propertyId" element={<TenantPropertyPage />} />
                     </>
                 }
             </Routes>

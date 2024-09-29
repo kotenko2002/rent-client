@@ -38,6 +38,30 @@ class PropertyService {
             return [];
         }
     }
+
+    static async getPropertiesByCityId(cityId) {
+        const url = `/property/tenant/items/${cityId}`;
+
+        try {
+            const response = await axiosInstance.get(url);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching properties by cityId:', error);
+            return [];
+        }
+    }
+
+    static async getPropertyFullInfoById(propertyId) {
+        const url = `/property/item/${propertyId}`;
+
+        try {
+            const response = await axiosInstance.get(url);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching property full info by ID ${propertyId}:`, error);
+            return null;
+        }
+    }
 }
 
 export default PropertyService;

@@ -10,12 +10,12 @@ const PropertyList = ({ properties }) => {
         if (userRole === 'Landlord') {
             navigate(`/landloardproperties/${propertyId}`)
         } else if (userRole === 'Tenant') {
-            //navigate("/")
+            navigate(`/tenantproperty/${propertyId}`)
         }
     }
 
     return (
-        <div className="container mt-5">
+        <div>
             <h2 className="mb-4">Список об’єктів вашої нерухомості</h2>
             <div className="row">
                 {properties.map(property => (

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropertyService from '../../../services/PropertyService';
-import CityService from '../../../services/CityService';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import CitySelect from '../CitySelect';
 
 function CreatePropertyPage() {
     const navigate = useNavigate();
@@ -15,25 +15,10 @@ function CreatePropertyPage() {
         photos: []
     });
 
-    const [cities, setCities] = useState([]);
-
-    useEffect(() => {
-        const fetchCities = async () => {
-            try {
-                const cityData = await CityService.getAllCities();
-                setCities(cityData);
-            } catch (error) {
-                toast.error("Не вдалося завантажити міста.");
-            }
-        };
-
-        fetchCities();
-    }, []);
-
     const handlePropertyChange = (e) => {
         const { name, value, type, files } = e.target;
         if (type === "file") {
-            setPropertyData({ ...propertyData, [name]: Array.from(files) }); // Convert FileList to array
+            setPropertyData({ ...propertyData, [name]: Array.from(files) });
         } else {
             setPropertyData({ ...propertyData, [name]: value });
         }
@@ -70,23 +55,10 @@ function CreatePropertyPage() {
 
     return (
         <form className="container mt-5" onSubmit={handlePropertySubmit} style={{ maxWidth: "500px" }}>
-            <div className="form-group">
-                <label>Виберіть місто</label>
-                <select
-                    className="form-control mb-2"
-                    name="cityId"
-                    value={propertyData.cityId}
-                    onChange={handlePropertyChange}
-                    required
-                >
-                    <option value="">Оберіть місто</option>
-                    {cities.map(city => (
-                        <option key={city.id} value={city.id}>
-                            {city.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
+            <CitySelect
+                value={propertyData.cityId}
+                onChange={handlePropertyChange}
+            />
             <div className="form-group">
                 <label>Адреса</label>
                 <input
