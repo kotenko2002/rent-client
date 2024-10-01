@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CityService from '../../services/CityService';
 import { toast } from 'react-toastify';
 
-function CitySelect({ value, onChange }) {
+function CitySelect({ value, onChange, labelText }) {
     const [cities, setCities] = useState([]);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function CitySelect({ value, onChange }) {
 
     return (
         <div className="form-group">
-            <label>Виберіть місто</label>
+            <label>{labelText || 'Виберіть місто'}</label>
             <select
                 className="form-control mb-2"
                 name="cityId"
@@ -28,7 +28,7 @@ function CitySelect({ value, onChange }) {
                 onChange={onChange}
                 required
             >
-                <option value="">Оберіть місто</option>
+                <option value="" disabled>Оберіть місто</option>
                 {cities.map(city => (
                     <option key={city.id} value={city.id}>
                         {city.name}

@@ -27,6 +27,41 @@ class PropertyService {
         }
     }
 
+    static async editProperty(id, cityId, address, description, price, photos, photoIdsToDelete) {
+        const url = '/property/landlord';
+        const formData = new FormData();
+
+        formData.append('id', id);
+        if (cityId) formData.append('cityId', cityId);
+        if (address) formData.append('address', address);
+        if (description) formData.append('description', description);
+        if (price) formData.append('price', price);
+
+        if (photos) {
+            photos.forEach(photo => {
+                formData.append('photos', photo);
+            });
+        }
+
+        if (photoIdsToDelete) {
+            photoIdsToDelete.forEach(photoId => {
+                formData.append('photoIdsToDelete', photoId);
+            });
+        }
+
+        try {
+            const response = await axiosInstance.patch(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return response.status === 200;
+        } catch (error) {
+            console.error('Помилка редагування нерухомості:', error);
+            return false;
+        }
+    }
+
     static async getProperties() {
         const url = '/property/landlord/items';
 
