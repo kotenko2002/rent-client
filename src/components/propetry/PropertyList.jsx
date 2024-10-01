@@ -35,9 +35,9 @@ const PropertyList = ({ properties }) => {
                                 }}
                             />
                             <div style={{flexGrow: 1}}>
-                                <p><strong>Місто: </strong>{property.cityName}</p>
-                                <p><strong>Адреса: </strong>{property.address}</p>
-                                <p><strong>Ціна: </strong>{property.price} UAH</p>
+                                <p>Місто: <em>{property.cityName}</em></p>
+                                <p>Адреса: <em>{property.address}</em></p>
+                                <p>Ціна: <em>{property.price} грн/місяць</em></p>
                                 <button
                                     className="btn btn-primary"
                                     onClick={() => handleDetailsBtnClick(property.id)}

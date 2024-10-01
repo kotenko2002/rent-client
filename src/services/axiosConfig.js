@@ -32,6 +32,7 @@ axiosInstance.interceptors.response.use(
                 toast.error(error.response.data.message);
             }
             if (error.response.status === 401 && window.location.pathname !== '/auth') {
+                localStorage.removeItem('accessToken');
                 window.location.href = '/auth';
             }
         }

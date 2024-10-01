@@ -11,7 +11,7 @@ class CityService {
             }
             return [];
         } catch (error) {
-            console.error('Error fetching cities:', error);
+            console.error('Помилка під час отримання міст:', error);
             return [];
         }
     }

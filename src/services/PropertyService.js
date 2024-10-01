@@ -22,7 +22,7 @@ class PropertyService {
             });
             return response.status === 200;
         } catch (error) {
-            console.error('Error adding new property:', error);
+            console.error('Помилка додавання нової нерухомості:', error);
             return false;
         }
     }
@@ -34,7 +34,7 @@ class PropertyService {
             const response = await axiosInstance.get(url);
             return response.data;
         } catch (error) {
-            console.error('Error fetching properties:', error);
+            console.error('Помилка отримання нерухомостей:', error);
             return [];
         }
     }
@@ -46,7 +46,7 @@ class PropertyService {
             const response = await axiosInstance.get(url);
             return response.data;
         } catch (error) {
-            console.error('Error fetching properties by cityId:', error);
+            console.error('Помилка отримання нерухомостей за cityId:', error);
             return [];
         }
     }
@@ -58,7 +58,7 @@ class PropertyService {
             const response = await axiosInstance.get(url);
             return response.data;
         } catch (error) {
-            console.error(`Error fetching property full info by ID ${propertyId}:`, error);
+            console.error(`Помилка отримання повної інформації про нерухомість за ID ${propertyId}:`, error);
             return null;
         }
     }
