@@ -28,12 +28,19 @@ axiosInstance.interceptors.response.use(
     },
     (error) => {
         if (error.response) {
-            if (error.response.status >= 300 && error.response.data.message) {
-                toast.error(error.response.data.message);
-            }
             if (error.response.status === 401 && window.location.pathname !== '/auth') {
                 localStorage.removeItem('accessToken');
                 window.location.href = '/auth';
+            } else if (error.response.status >= 300) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message);
+                } else if (error.response.data.errors) {
+                    Object.keys(error.response.data.errors).forEach((field) => {
+                        error.response.data.errors[field].forEach((message) => {
+                            toast.error(message);
+                        });
+                    });
+                }
             }
         }
         return Promise.reject(error);

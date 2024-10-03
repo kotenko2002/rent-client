@@ -6,6 +6,7 @@ const Header = ({isAuthed, role}) => {
 
     const logout = () => {
         localStorage.removeItem("accessToken");
+        navigate("/")
         window.location.reload();
     }
 

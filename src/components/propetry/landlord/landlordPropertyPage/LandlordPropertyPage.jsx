@@ -5,6 +5,8 @@ import CitySelect from '../../CitySelect';
 import { toast } from 'react-toastify';
 import PropertyCarousel from '../../PropertyCarousel';
 import PropertyService from "../../../../services/PropertyService";
+import { Tab, Nav } from 'react-bootstrap';
+import ResponsesList from "./ResponsesList";
 
 const LandlordPropertyPage = () => {
     const { propertyId } = useParams();
@@ -87,68 +89,84 @@ const LandlordPropertyPage = () => {
                 </div>
 
                 <div className="col-md-6 mt-3">
-                    <div className="card">
-                        <div className="card-body">
-                            <form onSubmit={handlePropertySubmit}>
-                                <div className="form-group">
-                                    <CitySelect
-                                        value={propertyData.cityId}
-                                        onChange={handlePropertyChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Адреса</label>
-                                    <input
-                                        type="text"
-                                        className="form-control mb-2"
-                                        name="address"
-                                        value={propertyData.address}
-                                        onChange={handlePropertyChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Опис</label>
-                                    <textarea
-                                        className="form-control mb-2"
-                                        name="description"
-                                        value={propertyData.description}
-                                        onChange={handlePropertyChange}
-                                        required
-                                    ></textarea>
-                                </div>
-                                <div className="form-group">
-                                    <label>Ціна грн/місяць</label>
-                                    <input
-                                        type="number"
-                                        className="form-control mb-2"
-                                        name="price"
-                                        value={propertyData.price}
-                                        onChange={handlePropertyChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label>Додати фотографії</label>
-                                    <input
-                                        type="file"
-                                        className="form-control mb-2"
-                                        name="photos"
-                                        onChange={handlePropertyChange}
-                                        multiple
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary w-100 mt-3" disabled={!hasUnsavedChanges}>
-                                    Оновити власність
-                                </button>
-                            </form>
+                    <Tab.Container defaultActiveKey="generalInfo">
+                        <Nav variant="underline">
+                            <Nav.Item>
+                                <Nav.Link eventKey="generalInfo">Загальна інформація</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="reviews">Відгуки</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
 
-                            <button onClick={handleDeleteProperty} className="btn btn-danger w-100 mt-3">
-                                Видалити власність
-                            </button>
-                        </div>
-                    </div>
+                        <Tab.Content className="mt-2">
+                            <Tab.Pane eventKey="generalInfo">
+                                <div className="card card-body">
+                                    <form onSubmit={handlePropertySubmit}>
+                                        <div className="form-group">
+                                            <CitySelect
+                                                value={propertyData.cityId}
+                                                onChange={handlePropertyChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Адреса</label>
+                                            <input
+                                                type="text"
+                                                className="form-control mb-2"
+                                                name="address"
+                                                value={propertyData.address}
+                                                onChange={handlePropertyChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Опис</label>
+                                            <textarea
+                                                className="form-control mb-2"
+                                                name="description"
+                                                value={propertyData.description}
+                                                onChange={handlePropertyChange}
+                                                required
+                                            ></textarea>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Ціна грн/місяць</label>
+                                            <input
+                                                type="number"
+                                                className="form-control mb-2"
+                                                name="price"
+                                                value={propertyData.price}
+                                                onChange={handlePropertyChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group mb-3">
+                                            <label>Додати фотографії</label>
+                                            <input
+                                                type="file"
+                                                className="form-control mb-2"
+                                                name="photos"
+                                                onChange={handlePropertyChange}
+                                                multiple
+                                            />
+                                        </div>
+                                        <button type="submit" className="btn btn-primary w-100 mt-3" disabled={!hasUnsavedChanges}>
+                                            Оновити власність
+                                        </button>
+                                    </form>
+
+                                    <button onClick={handleDeleteProperty} className="btn btn-danger w-100 mt-3">
+                                        Видалити власність
+                                    </button>
+                                </div>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="reviews">
+                                <ResponsesList propertyId={propertyId}/>
+                            </Tab.Pane>
+                        </Tab.Content>
+                    </Tab.Container>
                 </div>
             </div>
         </div>

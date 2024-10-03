@@ -88,16 +88,6 @@ const TenantPropertyPage = () => {
                             </form>
                         </div>
                     </div>
-
-                    <OverlayTrigger
-                        overlay={
-                            <Tooltip>
-                                Напишіть власнику для отримання додаткової інформації або домовленості про оренду
-                            </Tooltip>
-                        }
-                    >
-                        <FaQuestionCircle className="text-muted mt-3" />
-                    </OverlayTrigger>
                 </div>
             </div>
         </div>
