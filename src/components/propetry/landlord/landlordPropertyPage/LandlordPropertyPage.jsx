@@ -1,47 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import PropertyService from '../../../services/PropertyService';
-import CitySelect from '../CitySelect';
+import useLandlordPropertyData from './useLandlordPropertyData';
+import CitySelect from '../../CitySelect';
 import { toast } from 'react-toastify';
-import Carousel from 'react-bootstrap/Carousel';
+import PropertyCarousel from '../../PropertyCarousel';
+import PropertyService from "../../../../services/PropertyService";
 
 const LandlordPropertyPage = () => {
     const { propertyId } = useParams();
     const navigate = useNavigate();
-    const [propertyData, setPropertyData] = useState({
-        cityId: "",
-        address: "",
-        description: "",
-        price: 0,
-        photos: [],
-        photoIdsToDelete: []
-    });
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [uploadedPhotos, setUploadedPhotos] = useState([]);
-    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false); // New state for tracking changes
-
-    useEffect(() => {
-        const fetchProperty = async () => {
-            try {
-                const data = await PropertyService.getPropertyFullInfoById(propertyId);
-                setPropertyData({
-                    cityId: data.cityId,
-                    address: data.address,
-                    description: data.description,
-                    price: data.price,
-                    photoIdsToDelete: []
-                });
-                setUploadedPhotos(data.photos || []);
-            } catch (err) {
-                setError('Не вдалося отримати інформацію про нерухомість.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProperty();
-    }, [propertyId]);
+    const {
+        propertyData,
+        setPropertyData, uploadedPhotos,
+        setUploadedPhotos,
+        loading,
+        error
+    } = useLandlordPropertyData(propertyId);
+    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
     const handlePropertyChange = (e) => {
         const { name, value, type, files } = e.target;
@@ -52,7 +27,7 @@ const LandlordPropertyPage = () => {
             setPropertyData({ ...propertyData, [name]: value });
         }
 
-        setHasUnsavedChanges(true); // Set flag to true on change
+        setHasUnsavedChanges(true);
     };
 
     const handleDeletePhoto = (photo) => {
@@ -62,7 +37,7 @@ const LandlordPropertyPage = () => {
             photoIdsToDelete: [...prevState.photoIdsToDelete, photo.id]
         }));
 
-        setHasUnsavedChanges(true); // Set flag to true on photo deletion
+        setHasUnsavedChanges(true);
     };
 
     const handlePropertySubmit = async (e) => {
@@ -84,6 +59,17 @@ const LandlordPropertyPage = () => {
         }
     };
 
+    const handleDeleteProperty = async () => {
+        const confirmDelete = window.confirm("Ви впевнені, що хочете видалити цю нерухомість?");
+        if (confirmDelete) {
+            const success = await PropertyService.deleteProperty(propertyId);
+            if (success) {
+                toast.success("Нерухомість успішно видалена!");
+                navigate('/landloardproperties');
+            }
+        }
+    };
+
     if (loading) {
         return <p>Завантаження...</p>;
     }
@@ -97,26 +83,7 @@ const LandlordPropertyPage = () => {
             <h1>Інформація про нерухомість</h1>
             <div className="row">
                 <div className="col-md-6 mt-3">
-                    <Carousel className="carousel-left" style={{ maxHeight: '500px', maxWidth: '100%' }}>
-                        {uploadedPhotos.map((photo, index) => (
-                            <Carousel.Item key={index}>
-                                <img
-                                    className="d-block w-100"
-                                    src={photo.url}
-                                    alt={`Фото ${index + 1}`}
-                                    style={{ maxHeight: '500px', objectFit: 'cover' }}
-                                />
-                                <Carousel.Caption>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={() => handleDeletePhoto(photo)}
-                                    >
-                                        Видалити
-                                    </button>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
+                    <PropertyCarousel photos={uploadedPhotos} onDelete={handleDeletePhoto} />
                 </div>
 
                 <div className="col-md-6 mt-3">
@@ -163,7 +130,7 @@ const LandlordPropertyPage = () => {
                                     />
                                 </div>
                                 <div className="form-group mb-3">
-                                    <label>Фотографії</label>
+                                    <label>Додати фотографії</label>
                                     <input
                                         type="file"
                                         className="form-control mb-2"
@@ -176,6 +143,10 @@ const LandlordPropertyPage = () => {
                                     Оновити власність
                                 </button>
                             </form>
+
+                            <button onClick={handleDeleteProperty} className="btn btn-danger w-100 mt-3">
+                                Видалити власність
+                            </button>
                         </div>
                     </div>
                 </div>

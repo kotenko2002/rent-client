@@ -7,12 +7,8 @@ function CitySelect({ value, onChange, labelText }) {
 
     useEffect(() => {
         const fetchCities = async () => {
-            try {
-                const cityData = await CityService.getAllCities();
-                setCities(cityData);
-            } catch (error) {
-                toast.error("Не вдалося завантажити міста.");
-            }
+            const cityData = await CityService.getAllCities();
+            setCities(cityData);
         };
 
         fetchCities();

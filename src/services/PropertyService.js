@@ -62,18 +62,6 @@ class PropertyService {
         }
     }
 
-    static async getProperties() {
-        const url = '/property/landlord/items';
-
-        try {
-            const response = await axiosInstance.get(url);
-            return response.data;
-        } catch (error) {
-            console.error('Помилка отримання нерухомостей:', error);
-            return [];
-        }
-    }
-
     static async getPropertiesByCityId(cityId) {
         const url = `/property/tenant/items/${cityId}`;
 
@@ -82,6 +70,18 @@ class PropertyService {
             return response.data;
         } catch (error) {
             console.error('Помилка отримання нерухомостей за cityId:', error);
+            return [];
+        }
+    }
+
+    static async getPropertiesByLandlord() {
+        const url = '/property/landlord/items';
+
+        try {
+            const response = await axiosInstance.get(url);
+            return response.data;
+        } catch (error) {
+            console.error('Помилка отримання нерухомостей:', error);
             return [];
         }
     }
@@ -95,6 +95,18 @@ class PropertyService {
         } catch (error) {
             console.error(`Помилка отримання повної інформації про нерухомість за ID ${propertyId}:`, error);
             return null;
+        }
+    }
+
+    static async deleteProperty(propertyId) {
+        const url = `/property/landlord/${propertyId}`;
+
+        try {
+            const response = await axiosInstance.delete(url);
+            return response.status === 200;
+        } catch (error) {
+            console.error(`Помилка видалення нерухомості за ID ${propertyId}:`, error);
+            return false;
         }
     }
 }

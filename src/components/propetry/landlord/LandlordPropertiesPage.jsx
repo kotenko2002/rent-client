@@ -10,7 +10,7 @@ const LandlordPropertiesPage = () => {
     useEffect(() => {
         const fetchProperties = async () => {
             try {
-                const data = await PropertyService.getProperties();
+                const data = await PropertyService.getPropertiesByLandlord();
                 setProperties(data);
             } catch (err) {
                 setError('Не вдалося отримати об’єкти.');

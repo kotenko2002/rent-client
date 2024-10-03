@@ -11,7 +11,7 @@ import extractRoleAndStore from "./helpers/extractRoleAndStore";
 import CreatePropertyPage from "./components/propetry/landlord/CreatePropertyPage";
 import PropertyList from "./components/propetry/PropertyList";
 import LandlordPropertiesPage from "./components/propetry/landlord/LandlordPropertiesPage";
-import LandlordPropertyPage from "./components/propetry/landlord/LandlordPropertyPage";
+import LandlordPropertyPage from "./components/propetry/landlord/landlordPropertyPage/LandlordPropertyPage";
 import SearchPropertyPage from "./components/propetry/tenant/SearchPropertyPage";
 import TenantPropertyPage from "./components/propetry/tenant/TenantPropertyPage";
 

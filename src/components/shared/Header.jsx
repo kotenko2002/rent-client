@@ -24,9 +24,6 @@ const Header = ({isAuthed, role}) => {
                                 <li className="nav-item">
                                     <a className="nav-link" onClick={() => navigate("/searchproperty")} role="button">Пошук житла</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" onClick={() => navigate("/")} role="button">Мої відповіді</a>
-                                </li>
                             </>
                         }
 

@@ -27,29 +27,24 @@ function CreatePropertyPage() {
     const handlePropertySubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const success = await PropertyService.addNewProperty(
-                propertyData.cityId,
-                propertyData.address,
-                propertyData.description,
-                Number(propertyData.price), // Ensure price is a number
-                propertyData.photos
-            );
+        const success = await PropertyService.addNewProperty(
+            propertyData.cityId,
+            propertyData.address,
+            propertyData.description,
+            Number(propertyData.price), // Ensure price is a number
+            propertyData.photos
+        );
 
-            if (success) {
-                toast.success("Власність успішно додана!");
-                setPropertyData({
-                    cityId: "",
-                    address: "",
-                    description: "",
-                    price: 0,
-                    photos: []
-                });
-                navigate("/landloardproperties");
-            }
-        } catch (error) {
-            console.error("Error submitting property:", error);
-            toast.error("Не вдалося додати власність.");
+        if (success) {
+            toast.success("Власність успішно додана!");
+            setPropertyData({
+                cityId: "",
+                address: "",
+                description: "",
+                price: 0,
+                photos: []
+            });
+            navigate("/landloardproperties");
         }
     };
 
